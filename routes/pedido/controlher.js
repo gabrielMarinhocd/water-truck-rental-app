@@ -1,13 +1,15 @@
 import express from "express";
 import pg from "pg";
 const router = express.Router();
+import dotenv from 'dotenv';
+dotenv.config();
+const { connectionString } = process.env;
 
 const pool = new pg.Pool({
-  user: "admin",
-  host: "localhost",
-  database: "test_db",
-  password: "mypassword",
-  port: 5432,
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 router.post("/", async (req, res) => {
