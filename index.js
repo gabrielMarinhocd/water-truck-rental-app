@@ -4,6 +4,7 @@ import routeCliente from'./routes/cliente/controlher.js';
 import routeServico from './routes/servico/controlher.js';
 import routePedido from './routes/pedido/controlher.js';
 
+
 const app = express();
 app.use(express.json());
 app.use(cors());

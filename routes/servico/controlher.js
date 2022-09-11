@@ -1,6 +1,7 @@
 import express from "express";
 import pg from "pg";
 const router = express.Router();
+import dotenv from 'dotenv';
 dotenv.config();
 const { connectionString } = process.env;
 
