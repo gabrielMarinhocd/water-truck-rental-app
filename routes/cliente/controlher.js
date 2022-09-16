@@ -13,10 +13,15 @@ const pool = new pg.Pool({
   }
 });
 
+pool.on('connect', () => {
+  console.log('Base de Dados conectado com sucesso!');
+});
+
+
 router.post("/", async (req, res) => {
   try {
     const cliente = req.body;
-    await pool.connect();
+    
 
     await pool.query(
       "INSERT INTO cliente( cpf, nome, email, cep, telefone, ativo) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
@@ -35,6 +40,7 @@ router.post("/", async (req, res) => {
         res.status(200).send(results.rows);
       }
     );
+    
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -43,15 +49,15 @@ router.post("/", async (req, res) => {
 
 router.get("/id", async (req, res) => {
   try {
-    await pool.connect();
+    
 
     await pool.query("SELECT * FROM cliente where id = $1",[req.query.id], (err, results) => {
       if (err) {
         throw err;
       }
-
       res.status(200).send(results.rows);
     });
+    
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -59,16 +65,18 @@ router.get("/id", async (req, res) => {
 
 
 router.get("/", async (req, res) => {
+  let clientes
   try {
-    await pool.connect();
+    
 
-    await pool.query("SELECT * FROM cliente", (err, results) => {
+   await pool.query("SELECT * FROM cliente", (err, results) => {
       if (err) {
         throw err;
       }
-
-      res.status(200).send(results.rows);
+     res.status(200).send(results.rows);
     });
+    
+   
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -77,15 +85,16 @@ router.get("/", async (req, res) => {
 router.delete("/", async (req, res) => {
   try {
     const client =  req.query
-    await pool.connect();
+    
 
     await pool.query("DELETE  FROM cliente  WHERE id = $1", [client.id], (err, results) => {
       if (err) {
         throw err;
       }
-
+      
       res.status(200).send(results);
     });
+    ;
   } catch (err) {
     res.status(500).send(err.message);
   }
