@@ -120,11 +120,11 @@ router.delete("/", async (req, res) => {
     const client =  req.query
     
 
-    await pool.query("DELETE  FROM pedido  WHERE id = $1", [client.id], (err, results) => {
+    await pool.query("UPDATE pedido SET ativo = $1  WHERE id = $2", [2,client.id], (err, results) => {
       if (err) {
         throw err;
       }
-      res.status(200).send(results);
+      res.status(200).send("Pedido desativado");
     });
    
   } catch (err) {
