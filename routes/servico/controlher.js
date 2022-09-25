@@ -80,15 +80,6 @@ router.get("/", async (req, res) => {
 router.delete("/", async (req, res) => {
   try {
     const client =  req.query
-
-
-    // await pool.query("DELETE  FROM servico  WHERE id = $1", [client.id], (err, results) => {
-    //   if (err) {
-    //     throw err;
-    //   }
-      
-    //   res.status(200).send(results);
-    // });
     
    await pool.query("UPDATE servico SET ativo = $1  WHERE id = $2", [2, client.id], (err, results) => {
       if (err) {
