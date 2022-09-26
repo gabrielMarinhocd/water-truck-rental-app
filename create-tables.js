@@ -16,6 +16,12 @@ const client = new pg.Client({
   }
   })
   
+// client.connect()
+// client.query('CREATE TABLE cliente(id SERIAL PRIMARY KEY, cpf varchar(30), nome VARCHAR(255), email varchar(100), cep varchar(45), telefone varchar(14) , ativo int )', (err, res) => {
+//   console.log(err, res)
+//   client.end()
+// })
+
 
 // client.connect()
 // client.query('CREATE TABLE cliente(id SERIAL PRIMARY KEY, cpf varchar(30), nome VARCHAR(255), email varchar(100), cep varchar(45), telefone varchar(14) , ativo int )', (err, res) => {
@@ -41,6 +47,12 @@ const client = new pg.Client({
 //   console.log(err, res)
 //   client.end()
 // })
+
+client.connect()
+client.query('ALTER TABLE pedido_servico ADD no_servico char(255);', (err, res) => {
+  console.log(err, res)
+  client.end()
+});
 
 // NO
 

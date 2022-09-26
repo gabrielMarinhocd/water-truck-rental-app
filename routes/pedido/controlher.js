@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
     const secondQuery = (id) => {
       pedido.forEach((item) => {
         pool.query(
-          "INSERT INTO pedido_servico(id_servico, id_pedido, quantidade, local, data_inicio, hora, forma_pagamento, data_termino, quatidade_litros) VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+          "INSERT INTO pedido_servico(id_servico, id_pedido, quantidade, local, data_inicio, hora, forma_pagamento, data_termino, quatidade_litros, no_servico) VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
           [
             item.id_servico,
             id,
@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
             item.forma_pagamento,
             item.data_termino,
             item.quantidade_litros,
+            item.no_servico,
           ],
           (error, results) => {
             if (error) {
