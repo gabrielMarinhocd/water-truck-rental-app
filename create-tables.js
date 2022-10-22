@@ -1,12 +1,18 @@
 import  pg from 'pg';
-const connectionString = 'postgres://sdqjmgffzasoyt:2a065c8ddd816801d452eb957d5621e7f1b148d3555a56731b3a547dc4b3eacb@ec2-3-208-79-113.compute-1.amazonaws.com:5432/d70fd4sne97o1p'
-
+// import dotenv from 'dotenv';
+// dotenv.config();
+// const { connectionString } = process.env;
+const connectionString = 'postgres://yozegpeflqcbex:92127c4562788e254d58a7f289b597dd2c947d1b0461a81f2c9b2eab5e38861b@ec2-52-203-99-122.compute-1.amazonaws.com:5432/d7hmalenmpq53t'
 const pool = new pg.Pool({
   connectionString,
   ssl: {
     rejectUnauthorized: false
   }
-})
+});
+
+pool.on('connect', () => {
+  console.log('Base de Dados conectado com sucesso!');
+});
 
 
 const client = new pg.Client({
@@ -30,7 +36,7 @@ const client = new pg.Client({
 // })
 
 // client.connect()
-// client.query('CREATE TABLE servico(id SERIAL PRIMARY KEY, tipo varchar(45), nome varchar(255), ativo int )', (err, res) => {
+// client.query('CREATE TABLE servico(id SERIAL PRIMARY KEY, tipo varchar(45), nome varchar(255), ativo int, descricao varchar(255), imagem varchar(255) )', (err, res) => {
 //   console.log(err, res)
 //   client.end()
 // })
@@ -43,15 +49,14 @@ const client = new pg.Client({
 // })
 
 // client.connect()
-// client.query('CREATE TABLE pedido_servico(id SERIAL PRIMARY KEY, id_servico int, id_pedido int, quantidade int, local varchar(255), data_inicio DATE, hora TIME, forma_pagamento varchar(45), data_termino varchar(45), quatidade_litros INT, FOREIGN KEY (id_servico) REFERENCES servico(id),FOREIGN KEY (id_pedido) REFERENCES pedido(id) )', (err, res) => {
+// client.query('CREATE TABLE pedido_servico(id SERIAL PRIMARY KEY, id_servico int, id_pedido int, quantidade int, local varchar(255), data_inicio DATE, hora VARCHAR(10), forma_pagamento varchar(45), data_termino varchar(45), quatidade_litros INT, FOREIGN KEY (id_servico) REFERENCES servico(id),FOREIGN KEY (id_pedido) REFERENCES pedido(id) )', (err, res) => {
 //   console.log(err, res)
 //   client.end()
 // })
 
-client.connect()
-client.query('ALTER TABLE pedido_servico ADD no_servico char(255);', (err, res) => {
+pool.connect()
+pool.query('ALTER TABLE servico ADD descricao char(255); imagem char(255);', (err, res) => {
   console.log(err, res)
-  client.end()
 });
 
 // NO

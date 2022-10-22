@@ -22,11 +22,13 @@ router.post("/", async (req, res) => {
   
 
     await pool.query(
-      "INSERT INTO servico( tipo, nome, ativo) VALUES($1, $2, $3) RETURNING *",
+      "INSERT INTO servico( tipo, nome, ativo, descricao, imagem) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [
         servico.tipo,
         servico.nome,
         1,
+        servico.descricao,
+        servico.imagem,
       ],
       (error, results) => {
         if (error) {
