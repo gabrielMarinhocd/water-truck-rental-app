@@ -79,6 +79,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/ativo", async (req, res) => {
+  try {
+
+
+    await pool.query("SELECT * FROM servico WHERE ativo = 1", (err, results) => {
+      if (err) {
+        throw err;
+      }
+     
+      res.status(200).send(results.rows);
+    });
+
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 router.delete("/", async (req, res) => {
   try {
     const client =  req.query
