@@ -64,7 +64,7 @@ router.post("/", async (req, res) => {
 router.get("/id", async (req, res) => {
   try {
     await pool.query(
-      "SELECT * FROM pedido where id = $1 ORDER BY id",
+      "SELECT * FROM pedido where id = $1 ",
       [req.query.id],
       (err, results) => {
         if (err) {
@@ -95,7 +95,7 @@ router.get("/id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    await pool.query("SELECT * FROM pedido", (err, results) => {
+    await pool.query("SELECT * FROM pedido ORDER BY id ASC", (err, results) => {
       if (err) {
         throw err;
       }
