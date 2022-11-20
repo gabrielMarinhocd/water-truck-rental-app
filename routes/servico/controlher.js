@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
   try {
 
 
-    await pool.query("SELECT * FROM servico", (err, results) => {
+    await pool.query("SELECT * FROM servico  ORDER BY id ASC", (err, results) => {
       if (err) {
         throw err;
       }
@@ -83,7 +83,7 @@ router.get("/ativo", async (req, res) => {
   try {
 
 
-    await pool.query("SELECT * FROM servico WHERE ativo = 1", (err, results) => {
+    await pool.query("SELECT * FROM servico WHERE ativo = 1 ORDER BY id ASC", (err, results) => {
       if (err) {
         throw err;
       }
